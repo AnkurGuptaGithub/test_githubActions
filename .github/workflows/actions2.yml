@@ -2,7 +2,7 @@ name: run main2.py
 
 on:
   schedule:
-    - cron: '*/2 * * * *' # Runs every 2 minutes
+    - cron: '*/5 * * * *' # Runs every 5 minutes
 
 jobs:
   build:
@@ -13,6 +13,12 @@ jobs:
 
       - name: checkout repo content
         uses: actions/checkout@v4 # Updated to latest version
+
+      - name: Update and Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y chromium-driver  # Install Chromium Driver
+          chromium --version 
 
       - name: setup python
         uses: actions/setup-python@v4
