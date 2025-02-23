@@ -14,11 +14,6 @@ jobs:
       - name: checkout repo content
         uses: actions/checkout@v4 # Updated to latest version
 
-      - name: Update and Install Dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install chromium-driver  # Install Chromium Driver apt-get install chromium-driver
-
       - name: setup python
         uses: actions/setup-python@v4
         with:
