@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 import pandas as pd
 import requests
+import time
 
 bot_token= '7731248996:AAFKGHP-xBCYt1BxlcOLYFnk7FaziSUN9J4'
 chat_id= '1113954519'
@@ -23,6 +24,7 @@ def web_driver():
 
 driver = web_driver()
 driver.get("https://www.investorgain.com/report/live-ipo-gmp/331/current/")
+time.sleep(15)
 
 body = driver.find_element(By.TAG_NAME, "body")
 
