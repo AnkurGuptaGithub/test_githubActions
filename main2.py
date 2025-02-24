@@ -29,7 +29,7 @@ body = driver.find_element(By.TAG_NAME, "body")
 soup = BeautifulSoup( body.get_attribute("outerHTML") , "html.parser")
 table = soup.find("table", class_= "report-main-table w-auto table table-striped table-bordered table-hover" )  # soup.find("table")  # Adjust the tag if necessary
 
-print(table)
+print(soup.find_all("table"))
 
 if not table: print("Table not found in the element.")
     # Extract headers
