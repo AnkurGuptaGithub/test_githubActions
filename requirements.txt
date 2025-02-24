@@ -2,3 +2,4 @@ requests==2.28.1
 beautifulsoup4==4.13.3
 pandas==2.2.3
 selenium==4.27
+time
