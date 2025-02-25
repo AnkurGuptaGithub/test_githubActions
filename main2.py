@@ -48,6 +48,7 @@ for row in table.find_all("tr")[1:]:  # Skip the header row
 # Create the DataFrame
 df = pd.DataFrame(rows, columns=headers)
 
+df.to_csv("backup.csv")
 
 message= f"{len(df)}"
 
