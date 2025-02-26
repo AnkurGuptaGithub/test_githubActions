@@ -31,7 +31,7 @@ def convert_date(date_str):
 
 
 driver = web_driver()
-driver.get("https://www.investorgain.com/report/live-ipo-gmp/331/current/")
+driver.get("https://www.investorgain.com/redport/live-ipo-gmp/331/all/")
 time.sleep(10)
 
 body = driver.find_element(By.TAG_NAME, "body")
@@ -40,7 +40,7 @@ soup = BeautifulSoup( body.get_attribute("outerHTML") , "html.parser")
 table = soup.find("table", class_= "report-main-table w-auto table table-striped table-bordered table-hover" )  # soup.find("table")  # Adjust the tag if necessary
 
 if not table: 
-  print("Table not found in the element.")
+  req= requests.get(f"https://api.telegram.org/bot{bot_token}/sendMessage?chat_id={chat_id}&text=Table Not Found").json()
   exit()
     # Extract headers
 headers = [th.text.strip() for th in table.find_all("th")]
@@ -54,9 +54,10 @@ for row in table.find_all("tr")[1:]:  # Skip the header row
 df = pd.DataFrame(rows, columns=headers)
 
 if len(df)<1:
-  message= "Table not found in the element."
+  req = requests.get(f"https://api.telegram.org/bot{bot_token}/sendMessage?chat_id={chat_id}&text=Table Not Found").json()
   exit()
-else: message= ''
+
+message= ''
   
 df.columns = df.columns.str.replace(' ', '')
 df.GMP = df.GMP.str.replace('--','0').astype('float')
