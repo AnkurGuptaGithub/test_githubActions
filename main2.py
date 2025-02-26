@@ -24,6 +24,12 @@ def web_driver():
     driver = webdriver.Chrome(options=options)
     return driver
 
+
+def convert_date(date_str):
+    try:                       return datetime.strptime(date_str+'-2025', "%d-%b-%Y").date()
+    except ValueError:         return None  # Handle invalid date formats if needed
+
+
 driver = web_driver()
 driver.get("https://www.investorgain.com/report/live-ipo-gmp/331/current/")
 time.sleep(10)
