@@ -31,7 +31,7 @@ def convert_date(date_str):
 
 
 driver = web_driver()
-driver.get("https://www.investorgain.com/redport/live-ipo-gmp/331/all/")
+driver.get("https://www.investorgain.com/report/live-ipo-gmp/331/all/")
 time.sleep(10)
 
 body = driver.find_element(By.TAG_NAME, "body")
