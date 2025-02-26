@@ -3,8 +3,8 @@ name: run main2.py
 on:
   workflow_dispatch:  # Allows manual trigger
 
-  # schedule:
-  #   - cron: '*/5 * * * *' # Runs every 5 minutes
+  schedule:
+    - cron: '30 7 * * *' # Runs every day @1PM IST
 
 jobs:
   build:
