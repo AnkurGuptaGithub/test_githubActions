@@ -10,11 +10,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
     steps:
 
       - name: checkout repo content
         uses: actions/checkout@v4 # Updated to latest version
+        with:
+          persist-credentials: false
 
       - name: setup python
         uses: actions/setup-python@v4
