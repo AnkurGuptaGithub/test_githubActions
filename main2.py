@@ -67,7 +67,7 @@ df['BoADt'] = df['BoADt'].apply(convert_date)
 df['Listing'] = df['Listing'].apply(convert_date)
 
 try:
-  apply = pd.read_csv('apply.csv')
+  apply = pd.read_csv('apply.csv',index_col=0)
 except:
   apply = pd.DataFrame(columns= df.columns)
 
