@@ -102,7 +102,7 @@ for i in range(len(trending)):
 
 apply = apply[ ~apply.IPO.isin( df[df.IPO.isin(apply.IPO)][((df.GMP_apply.astype(float) - df.GMP)/df.Price)>0.1 ].IPO )].reset_index(drop=True)
 
-apply = pd.concat([apply, newIPO], ignore_index=True).reset_index(drop=True)
+apply = pd.concat([apply, newIPO], ignore_index=True, join="inner").reset_index(drop=True)
 
 apply.to_csv('apply.csv')
 
