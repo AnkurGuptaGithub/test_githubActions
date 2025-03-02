@@ -8,14 +8,8 @@ from datetime import datetime
 from datetime import date
 import os
 
-# bot_token= '7731248996:AAFKGHP-xBCYt1BxlcOLYFnk7FaziSUN9J4'
-# chat_id= '1113954519'
-
 bot_token = os.getenv('TELEGRAM_BOT_TOKEN')
 chat_id = os.getenv('CHAT_ID')
-
-req= requests.get(f"https://api.telegram.org/bot{bot_token}/sendMessage?chat_id={chat_id}&text=Table Not Found").json()
-  
 
 # url = f"https://api.telegram.org/bot{bot_token}/getUpdates"
 # requests.get(url).json()
