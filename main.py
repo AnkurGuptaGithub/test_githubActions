@@ -10,6 +10,10 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 
+api_key = os.getenv('TELEGRAM_BOT_TOKEN')
+
+print(api_key)
+
 def extract_ipo_data():
     url = "https://ipowatch.in/ipo-grey-market-premium-latest-ipo-gmp/"
     response = requests.get(url)
