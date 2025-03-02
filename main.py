@@ -9,6 +9,7 @@ chat_id= '1113954519'
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
+import os
 
 api_key = os.getenv('TELEGRAM_BOT_TOKEN')
 
