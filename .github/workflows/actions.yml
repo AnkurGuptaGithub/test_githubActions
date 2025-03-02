@@ -30,5 +30,6 @@ jobs:
           
       - name: execute py script
         env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN}}
+          CHAT_ID: ${{ secrets.CHAT_ID}}
         run: python main.py
