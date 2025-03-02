@@ -1,7 +1,4 @@
 
-
-# bot_token= '7731248996:AAFKGHP-xBCYt1BxlcOLYFnk7FaziSUN9J4'
-
 # url = f"https://api.telegram.org/bot{bot_token}/getUpdates"
 # requests.get(url).json()
 
@@ -10,12 +7,8 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import os
 
-api_key = os.getenv('TELEGRAM_BOT_TOKEN')
-chat_id = os.getenv('CHAT_ID')
-bot_token = api_key
-
-print("api_key: ", len(api_key), api_key[:44])
-
+bot_token = os.getenv('TELEGRAM_BOT_TOKEN')
+chat_id = os.getenv('CHAT_ID') 
 
 def extract_ipo_data():
     url = "https://ipowatch.in/ipo-grey-market-premium-latest-ipo-gmp/"
