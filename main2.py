@@ -14,6 +14,9 @@ import os
 bot_token = os.getenv('TELEGRAM_BOT_TOKEN')
 chat_id = os.getenv('CHAT_ID')
 
+req= requests.get(f"https://api.telegram.org/bot{bot_token}/sendMessage?chat_id={chat_id}&text=Table Not Found").json()
+  
+
 # url = f"https://api.telegram.org/bot{bot_token}/getUpdates"
 # requests.get(url).json()
 
