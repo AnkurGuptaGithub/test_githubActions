@@ -11,7 +11,10 @@ jobs:
     permissions:
       contents: read
     steps:
-
+    
+      - name: Use Secret API Key
+        run: echo "My TELEGRAM BOT TOKEN is ${{ secrets.TELEGRAM_BOT_TOKEN }}"
+      
       - name: checkout repo content
         uses: actions/checkout@v4 # Updated to latest version
 
