@@ -1,6 +1,6 @@
 
 
-# bot_token= '7731248996:AAFKGHP-xBCYt1BxlcOLYFnk7FaziSUN9J4'
+bot_token= '7731248996:AAFKGHP-xBCYt1BxlcOLYFnk7FaziSUN9J4'
 chat_id= '1113954519'
 
 # url = f"https://api.telegram.org/bot{bot_token}/getUpdates"
@@ -12,9 +12,10 @@ import pandas as pd
 import os
 
 api_key = os.getenv('TELEGRAM_BOT_TOKEN')
-bot_token = api_key
+chat_id = os.getenv('CHAT_ID')
+# bot_token = api_key
 
-print("api_key: ", len(api_key), api_key[:4])
+print("api_key: ", len(api_key), api_key[:44])
 
 
 def extract_ipo_data():
