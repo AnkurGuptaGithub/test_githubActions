@@ -12,8 +12,8 @@ jobs:
       contents: read
     steps:
     
-      - name: Use Secret API Key
-        run: echo "My TELEGRAM BOT TOKEN is ${{ secrets.TELEGRAM_BOT_TOKEN }}"
+      # - name: Use Secret API Key
+      #   run: echo "My TELEGRAM BOT TOKEN is ${{ secrets.TELEGRAM_BOT_TOKEN }}"
       
       - name: checkout repo content
         uses: actions/checkout@v4 # Updated to latest version
@@ -29,4 +29,6 @@ jobs:
           pip install -r requirements.txt
           
       - name: execute py script
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
         run: python main.py
