@@ -13,7 +13,7 @@ import os
 
 api_key = os.getenv('TELEGRAM_BOT_TOKEN')
 
-print(api_key)
+print("api_key: ", api_key)
 
 def extract_ipo_data():
     url = "https://ipowatch.in/ipo-grey-market-premium-latest-ipo-gmp/"
