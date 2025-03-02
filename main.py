@@ -1,7 +1,6 @@
 
 
-bot_token= '7731248996:AAFKGHP-xBCYt1BxlcOLYFnk7FaziSUN9J4'
-chat_id= '1113954519'
+# bot_token= '7731248996:AAFKGHP-xBCYt1BxlcOLYFnk7FaziSUN9J4'
 
 # url = f"https://api.telegram.org/bot{bot_token}/getUpdates"
 # requests.get(url).json()
@@ -13,7 +12,7 @@ import os
 
 api_key = os.getenv('TELEGRAM_BOT_TOKEN')
 chat_id = os.getenv('CHAT_ID')
-# bot_token = api_key
+bot_token = api_key
 
 print("api_key: ", len(api_key), api_key[:44])
 
