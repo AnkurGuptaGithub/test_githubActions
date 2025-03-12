@@ -86,7 +86,7 @@ for i in range(len(allots)):
 
 df = df.join(apply.set_index('IPO'), on='IPO', rsuffix='_apply').reset_index(drop=True)
 
-newIPO = df[ df.Status.str.contains('Open') ][ ~df.IPO.isin(apply.IPO) ][ (df.IPO.str.contains('IPO') & (df.GMP/df.Price>0.2)) | 
+newIPO = df[ df.Status.str.contains('Open') ][ ~df.IPO.isin(apply.IPO) ][ (~df.IPO.str.contains('SME') & (df.GMP/df.Price>0.2)) | 
  (df.IPO.str.contains('SME') & (df.GMP/df.Price>0.3)) | 
   (df.FireRating.str.count('🔥') >2)].reset_index(drop=True)
 
