@@ -61,8 +61,8 @@ if len(df)<1:
 message= ''
   
 df.columns = df.columns.str.replace(' ', '')
-df.GMP = df.GMP.str.replace('--','0').astype('float')
-df.Price = df.Price.str.replace('--','0').astype('float')
+df.GMP = df.GMP.str.replace('--','0').replace('NA','0').astype('float')
+df.Price = df.Price.str.replace('--','0').replace('NA','0').astype('float')
 df['Close'] = df['Close'].apply(convert_date)
 df['BoADt'] = df['BoADt'].apply(convert_date)
 df['Listing'] = df['Listing'].apply(convert_date)
