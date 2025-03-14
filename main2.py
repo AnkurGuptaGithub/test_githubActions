@@ -72,6 +72,12 @@ try:
 except:
   apply = pd.DataFrame(columns= df.columns)
 
+close = df[ df.Close==date.today() ][ df.IPO.isin(apply.IPO) ].reset_index(drop=True)
+
+if not close.empty: message+= "Close \n"
+for i in range(len(close)):
+  message +=   "{}".format(close["IPO"][i]) + " @" + "{}".format(close["EstListing"][i]) + "\n"
+
 listings = df[ df.Listing==date.today() ][ df.IPO.isin(apply.IPO) ].reset_index(drop=True)
 
 if not listings.empty: message+= "Listings \n"
