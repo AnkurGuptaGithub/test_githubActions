@@ -38,21 +38,22 @@ time.sleep(10)
 body = driver.find_element(By.TAG_NAME, "body")
 
 soup = BeautifulSoup( body.get_attribute("outerHTML") , "html.parser")
-table = soup.find("table", class_= "report-main-table w-auto table table-striped table-bordered table-hover" )  # soup.find("table")  # Adjust the tag if necessary
+table = soup.find("table", class_= "table table-striped table-bordered w-auto" )  # soup.find("table")  # Adjust the tag if necessary
 
 if not table: 
   req= requests.get(f"https://api.telegram.org/bot{bot_token}/sendMessage?chat_id={chat_id}&text=Table Not Found").json()
   exit()
     # Extract headers
-headers = [th.text.strip() for th in table.find_all("th")]
+headers = [  ''.join(filter(str.isalnum, th.text.strip()))  for th in table.find_all("th")]
 
 # Extract rows
 rows = []
 for row in table.find_all("tr")[1:]:  # Skip the header row
-    rows.append([td.text.strip() for td in row.find_all("td")])
+    temp_row = [td.text.strip() for td in row.find_all("td")]
+    if len(temp_row) > 1  : rows.append( temp_row ) 
 
 # Create the DataFrame
-df = pd.DataFrame(rows, columns=headers)
+df = pd.DataFrame(rows, columns=headers[:13])
 
 if len(df)<1:
   req = requests.get(f"https://api.telegram.org/bot{bot_token}/sendMessage?chat_id={chat_id}&text=Table Not Found").json()
