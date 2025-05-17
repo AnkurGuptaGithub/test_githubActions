@@ -13,8 +13,10 @@ chat_id = os.getenv('CHAT_ID')
 with open('check_file.txt', 'r') as f:
     content = f.read()
 
+message = "Test failed"
+
 if int(content) != 7 :
-    url = f"https://api.telegram.org/bot{bot_token}/sendMessage?chat_id={chat_id}&text={"Test failed"}"
+    url = f"https://api.telegram.org/bot{bot_token}/sendMessage?chat_id={chat_id}&text={message}"
     req= requests.get(url).json()
 
 with open('check_file.txt', 'w') as f:
