@@ -20,5 +20,5 @@ if int(content) != 7 :
     req= requests.get(url).json()
 
 with open('check_file.txt', 'w') as f:
-    f.write(0)
+    f.write("0")
 
