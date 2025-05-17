@@ -60,7 +60,9 @@ if len(df)<1:
   exit()
 
 message= ''
-df = df[~df.Status.str.contains('Upcoming')]
+substrings_to_filter = ["Close", "L@","Open","Sub"]
+df = df[df.Status.str.contains('|'.join(substrings_to_filter), case=False, na=False)].reset_index(drop=True)
+
 df.columns = df.columns.str.replace(' ', '')
 df.GMP = df.GMP.str.replace('--','0').replace('NA','0').astype('float')
 df.Price = df.Price.str.replace('--','0').replace('NA','0').astype('float')
