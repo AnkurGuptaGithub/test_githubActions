@@ -1,22 +1,22 @@
-name: run main.py
+name: run check.py
 
 on:
-  workflow_dispatch: 
-  # schedule:
-    # - cron: '05 14 */1 * *' # Runs every 2 minutes
+  workflow_dispatch:  # Allows manual trigger
+
+  schedule:
+    - cron: '30 10 * * 2' # Runs every tuesday @5PM IST
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
     steps:
-    
-      # - name: Use Secret API Key
-      #   run: echo "My TELEGRAM BOT TOKEN is ${{ secrets.TELEGRAM_BOT_TOKEN }}"
-      
+
       - name: checkout repo content
         uses: actions/checkout@v4 # Updated to latest version
+        with:
+          persist-credentials: false
 
       - name: setup python
         uses: actions/setup-python@v4
@@ -32,4 +32,17 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN}}
           CHAT_ID: ${{ secrets.CHAT_ID}}
-        run: python main.py
+        run: python check.py
+
+      - name: commit files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git diff-index --quiet HEAD || (git commit -a -m "updated logs" --allow-empty)
+          
+      - name: push changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main 
