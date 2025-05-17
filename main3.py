@@ -120,9 +120,9 @@ req= requests.get(url).json()
 
 with open('check_file.txt', 'r') as f:
     content = f.read()
-content+=1
+
 with open('check_file.txt', 'w') as f:
-    f.write(content)
+    f.write(str(int(content) + 1))
 
 print("File edited successfully!")
 
