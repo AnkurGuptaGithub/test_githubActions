@@ -78,42 +78,42 @@ try:
 except:
   apply = pd.DataFrame(columns= df.columns)
 
-close = df[ df.Close==date.today() ][ df.IPO.isin(apply.IPO) ].reset_index(drop=True)
+close = df[ df.Close==date.today() ][ df.Name.isin(apply.Name) ].reset_index(drop=True)
 
 if not close.empty: message+= "Close \n"
 for i in range(len(close)):
-  message +=   "{}".format(close["IPO"][i]) + " @" + "{}".format(close["EstListing"][i]) + "\n"
+  message +=   "{}".format(close["Name"][i]) + " @" + "{}".format(close["EstListing"][i]) + "\n"
 
-listings = df[ df.Listing==date.today() ][ df.IPO.isin(apply.IPO) ].reset_index(drop=True)
+listings = df[ df.Listing==date.today() ][ df.Name.isin(apply.Name) ].reset_index(drop=True)
 
 if not listings.empty: message+= "Listings \n"
 for i in range(len(listings)):
-  message +=   "{}".format(listings["IPO"][i]) + " @" + "{}".format(listings["EstListing"][i]) + "\n"
+  message +=   "{}".format(listings["Name"][i]) + " @" + "{}".format(listings["EstListing"][i]) + "\n"
 
-allots = df[df.BoADt==date.today()][df.IPO.isin(apply.IPO)].reset_index(drop=True)
+allots = df[df.BoADt==date.today()][df.Name.isin(apply.Name)].reset_index(drop=True)
 
 if not allots.empty: message+= "Allotment \n"
 for i in range(len(allots)):
-  message +=   "{}".format(allots["IPO"][i]) + " @" + "{}".format(allots["EstListing"][i]) + "\n"
+  message +=   "{}".format(allots["Name"][i]) + " @" + "{}".format(allots["EstListing"][i]) + "\n"
 
-df = df.join(apply.set_index('IPO'), on='IPO', rsuffix='_apply').reset_index(drop=True)
+df = df.join(apply.set_index('Name'), on='Name', rsuffix='_apply').reset_index(drop=True)
 
-newIPO = df[ df.Status.str.contains('Open') ][ ~df.IPO.isin(apply.IPO) ][ (~df.IPO.str.contains('SME') & (df.GMP/df.Price>0.2)) | 
- (df.IPO.str.contains('SME') & (df.GMP/df.Price>0.3)) | 
+newIPO = df[ df.Status.str.contains('Open') ][ ~df.Name.isin(apply.Name) ][ (~df.Name.str.contains('SME') & (df.GMP/df.Price>0.2)) | 
+ (df.Name.str.contains('SME') & (df.GMP/df.Price>0.3)) | 
   (df.FireRating.str.count('🔥') >2)].reset_index(drop=True)
 
 if not newIPO.empty: message+= "New IPOs \n"
 for i in range(len(newIPO)):
-  message +=   "{}".format(newIPO["IPO"][i]) + " @" + "{}".format(newIPO["EstListing"][i]) + "\n"
+  message +=   "{}".format(newIPO["Name"][i]) + " @" + "{}".format(newIPO["EstListing"][i]) + "\n"
 
-trending = df[ df.Status.str.contains('Open') ][df.IPO.isin(apply.IPO)][(((df.GMP-df.GMP_apply.astype(float))/df.Price)>0.1 ) | 
+trending = df[ df.Status.str.contains('Open') ][df.Name.isin(apply.Name)][(((df.GMP-df.GMP_apply.astype(float))/df.Price)>0.1 ) | 
   (df.FireRating.str.count('🔥') >2) ].reset_index(drop=True)
 
 if not trending.empty: message+= "Trending \n"
 for i in range(len(trending)):
-  message +=   "{}".format(trending["IPO"][i]) + " @" + "{}".format(trending["EstListing"][i]) + "\n"
+  message +=   "{}".format(trending["Name"][i]) + " @" + "{}".format(trending["EstListing"][i]) + "\n"
 
-apply = apply[ ~apply.IPO.isin( df[df.IPO.isin(apply.IPO)][((df.GMP_apply.astype(float) - df.GMP)/df.Price)>0.1 ].IPO )].reset_index(drop=True)
+apply = apply[ ~apply.Name.isin( df[df.Name.isin(apply.Name)][((df.GMP_apply.astype(float) - df.GMP)/df.Price)>0.1 ].Name )].reset_index(drop=True)
 
 apply = pd.concat([apply, newIPO], ignore_index=True, join="inner").reset_index(drop=True)
 
