@@ -1,4 +1,4 @@
-name: run main2.py
+name: run main.py
 
 on:
   workflow_dispatch:  # Allows manual trigger
@@ -32,7 +32,7 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN}}
           CHAT_ID: ${{ secrets.CHAT_ID}}
-        run: python main2.py
+        run: python main.py
 
       - name: commit files
         run: |
