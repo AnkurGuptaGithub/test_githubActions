@@ -30,6 +30,7 @@ def convert_date(date_str):
     try:                       return datetime.strptime(date_str+'-2025', "%d-%b-%Y").date()
     except ValueError:         return None  # Handle invalid date formats if needed
 
+message= ''
 
 driver = web_driver()
 driver.get("https://www.investorgain.com/report/live-ipo-gmp/331/all/")
@@ -59,7 +60,11 @@ if len(df)<1:
   req = requests.get(f"https://api.telegram.org/bot{bot_token}/sendMessage?chat_id={chat_id}&text=Table Not Found").json()
   exit()
 
-message= ''
+try:
+  apply = pd.read_csv('apply.csv',index_col=0)
+except:
+  apply = pd.DataFrame(columns= [['Name', 'Price', 'GMP', 'FireRating', 'Open', 'Close', 'BoADt', 'Listing']])
+  # apply = pd.DataFrame(columns= df.columns)
 
 df.columns = df.columns.str.replace(' ', '')
 df['Open'] = df['Open'].apply(convert_date)
@@ -73,10 +78,6 @@ df.GMP = df.GMP.str.replace('₹','').str.replace('--','0').str.replace('NA','0'
 df.Price = df.Price.str.replace('--','0').str.replace('NA','0').astype('float')
 
 
-try:
-  apply = pd.read_csv('apply.csv',index_col=0)
-except:
-  apply = pd.DataFrame(columns= df.columns)
 
 close = df[ df.Close==date.today() ][ df.Name.isin(apply.Name) ].reset_index(drop=True)
 
@@ -98,7 +99,7 @@ for i in range(len(allots)):
 
 df = df.join(apply.set_index('Name'), on='Name', rsuffix='_apply').reset_index(drop=True)
 
-newIPO = df[ df.Status.str.contains('Open') ][ ~df.Name.isin(apply.Name) ][ (~df.Name.str.contains('SME') & (df.GMP/df.Price>0.2)) | 
+newIPO = df[ df.Open==date.today() ][ ~df.Name.isin(apply.Name) ][ (~df.Name.str.contains('SME') & (df.GMP/df.Price>0.2)) | 
  (df.Name.str.contains('SME') & (df.GMP/df.Price>0.3)) | 
   (df.FireRating.str.count('🔥') >2)].reset_index(drop=True)
 
@@ -106,7 +107,7 @@ if not newIPO.empty: message+= "New IPOs \n"
 for i in range(len(newIPO)):
   message +=   "{}".format(newIPO["Name"][i]) + " @" + "{}".format(newIPO["EstListing"][i]) + "\n"
 
-trending = df[ df.Status.str.contains('Open') ][df.Name.isin(apply.Name)][(((df.GMP-df.GMP_apply.astype(float))/df.Price)>0.1 ) | 
+trending = df[ df.Close>date.today() ][df.Name.isin(apply.Name)][(((df.GMP-df.GMP_apply.astype(float))/df.Price)>0.1 ) | 
   (df.FireRating.str.count('🔥') >2) ].reset_index(drop=True)
 
 if not trending.empty: message+= "Trending \n"
