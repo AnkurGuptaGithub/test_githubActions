@@ -99,7 +99,7 @@ for i in range(len(allots)):
 
 df = df.join(apply.set_index('Name'), on='Name', rsuffix='_apply').reset_index(drop=True)
 
-newIPO = df[ df.Open==date.today() ][ ~df.Name.isin(apply.Name) ][ (~df.Name.str.contains('SME') & (df.GMP/df.Price>0.2)) | 
+newIPO = df[ df.Close>=date.today() ][ ~df.Name.isin(apply.Name) ][ (~df.Name.str.contains('SME') & (df.GMP/df.Price>0.2)) | 
  (df.Name.str.contains('SME') & (df.GMP/df.Price>0.3)) | 
   (df.FireRating.str.count('🔥') >2)].reset_index(drop=True)
 
@@ -107,7 +107,7 @@ if not newIPO.empty: message+= "New IPOs \n"
 for i in range(len(newIPO)):
   message +=   "{}".format(newIPO["Name"][i]) + " @" + "{}".format(newIPO["EstListing"][i]) + "\n"
 
-trending = df[ df.Close>date.today() ][df.Name.isin(apply.Name)][(((df.GMP-df.GMP_apply.astype(float))/df.Price)>0.1 ) | 
+trending = df[ df.Close>date.today() ][(((df.GMP-df.GMP_apply.astype(float))/df.Price)>0.1 ) | 
   (df.FireRating.str.count('🔥') >2) ].reset_index(drop=True)
 
 if not trending.empty: message+= "Trending \n"
