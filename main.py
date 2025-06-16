@@ -76,7 +76,7 @@ df = df[df.Open<=date.today()].reset_index(drop=True)
 
 df.GMP = df.GMP.str.replace('₹','').str.replace('--','0').str.replace('NA','0').str.split('(', expand=True)[0].astype('float')
 df.Price = df.Price.str.replace('--','0').str.replace('NA','0').astype('float')
-
+df.Name = df.Name.apply(lambda x: ' '.join(x.split(' ')[:-1]))
 
 
 close = df[ df.Close==date.today() ][ df.Name.isin(apply.Name) ].reset_index(drop=True)
